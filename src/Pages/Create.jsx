@@ -4,6 +4,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
 
 const Create = () => {
+  const imagBB_api = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`;
   const { user, login } = useContext(AuthContext);
   const options = [
     "painting",
@@ -72,8 +73,43 @@ const Create = () => {
         }
         //validation End
         return true;
+  };
+
+  const getImageBuffer = async (prompt, category) =>{
+
+    const finalPrompt = `imagine a ${category} : ${prompt}`;
+    console.log(finalPrompt);
+
+    const myForm = new FormData()
+    myForm.append('prompt', finalPrompt);
+
+    const response = await fetch('https://clipdrop-api.co/text-to-image/v1', {
+      method: 'POST',
+      headers: {
+        'x-api-key': import.meta.env.VITE_CD_KEY,
+      },
+      body: myForm,
+    })
+    const buffer = await response.arrayBuffer();
+    return buffer;
+
+
+  };
+
+  const generateImageUrl = async(buffer, prompt)=>{
+
+    const formData = new FormData();
+    formData.append('image', new Blob([buffer], {type: 'image/jpeg'}),
+  `${prompt}.jpg`);
+
+    const response = await fetch(imagBB_api, {
+      method: 'POST',
+      body: formData,
+    });
+    const data = await response.json();
+    return data;
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     
@@ -87,9 +123,15 @@ const Create = () => {
 
 
     console.log({ prompt, category });
-    const finalPrompt = `imagine a ${category} : ${prompt}`;
-    console.log(finalPrompt);
-    return;
+
+    const buffer = await getImageBuffer(prompt, category);
+    const data = await generateImageUrl(buffer, prompt);
+    console.log(data);
+    
+    // const blob = new Blob([buffer], {type: "image/jpeg"}); //set correct mime type
+    // const url = URL.createObjectURL(blob);
+    // console.log(url);
+    
   };
   return (
     <div>
