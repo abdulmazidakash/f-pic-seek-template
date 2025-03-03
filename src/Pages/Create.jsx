@@ -88,7 +88,7 @@ const Create = () => {
   
     console.log({ prompt, category });
   
-    axios.post("http://localhost:5000/api/v1/image/create", { 
+    axios.post(`${import.meta.env.VITE_API}/api/v1/image/create`, { 
       email: user?.email,
       prompt,
       category,

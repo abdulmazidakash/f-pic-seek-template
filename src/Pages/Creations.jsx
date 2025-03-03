@@ -7,7 +7,7 @@ const Creations = () => {
 
 	const [images, setImages] = useState([]);
 	useEffect(()=>{
-		fetch('http://localhost:5000/api/v1/image/all')
+		fetch(`${import.meta.env.VITE_API}/api/v1/image/all`)
 		.then(res=>res.json())
 		.then((data) => setImages(data))
 	}, [])

@@ -8,7 +8,7 @@ const SingleImage = () => {
 		const {id} = useParams();
 		const [image, setImage] = useState([]);
 		useEffect(()=>{
-			fetch(`http://localhost:5000/api/v1/image/single/${id}`)
+			fetch(`${import.meta.env.VITE_API}/api/v1/image/single/${id}`)
 			.then(res=>res.json())
 			.then((data) => setImage(data))
 		}, [id])
