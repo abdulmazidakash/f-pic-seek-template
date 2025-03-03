@@ -22,7 +22,7 @@ Pick-Seek is an advanced AI-powered tool that can generate images, analyze image
 ### 1. Clone This Project
 
 ```bash
-git clone https://github.com/ferdouszihad/pic-seek-template.git
+git clone https://github.com/abdulmazidakash/f-pic-seek-template
 ```
 
 ### 2. Install all Dependencies
