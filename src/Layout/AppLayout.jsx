@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Link, Outlet } from "react-router";
 import Navbar from "../components/shared/Navbar";
 import { AuthContext } from "../provider/AuthProvider";
 import { useContext } from "react";
@@ -31,9 +31,21 @@ const AppLayout = () => {
       <footer className="footer footer-center bg-cyan-50 glass text-base-content p-4">
         <aside>
           <p>
-            Copyright © {new Date().getFullYear()} - All right reserved by ACME
-            Industries Ltd
+            Copyright © {new Date().getFullYear()} - All right reserved by PIC-SEEK-AI
           </p>
+          <Link to="/" className="flex items-center gap-1 text-xl ">
+          <span className="bg-gradient-to-r from-stone-300 to-cyan-600 bg-clip-text text-transparent">
+            PIC-SEEK
+          </span>
+          <div>
+            <img
+              src="https://img.icons8.com/?size=96&id=8gR77jBNhfyz&format=png"
+              alt=""
+              width={20}
+            />
+          </div>
+          <span className="text-cyan-600">AI</span>
+        </Link>
         </aside>
       </footer>
     </>

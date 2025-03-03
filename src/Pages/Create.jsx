@@ -3,8 +3,11 @@ import PageTitle from "../components/shared/PageTitle";
 import { AuthContext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 const Create = () => {
+
+  const navigation = useNavigate();
   const { user, login } = useContext(AuthContext);
   const options = [
     "painting",
@@ -97,9 +100,26 @@ const Create = () => {
     })
     .then((res) => {
       console.log(res.data);
+      // SweetAlert2 Success Alert
+      Swal.fire({
+        title: "Success!",
+        text: "Image created successfully!",
+        icon: "success",
+        confirmButtonText: "OK"
+      });
+      navigation('/creations')
     })
+
     .catch((error) => {
       console.error("There was an error creating the image:", error);
+
+      // SweetAlert2 Error Alert
+      Swal.fire({
+        title: "Error!",
+        text: "Failed to create image. Please try again.",
+        icon: "error",
+        confirmButtonText: "OK"
+      });
     });
     
   };
